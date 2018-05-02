@@ -54,9 +54,9 @@ namespace VidlyExercise
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "2082642328727815",
+               appSecret: "d2da9deee70f171c3631f3f60d243bd9");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

@@ -22,27 +22,29 @@ namespace VidlyExercise.Controllers.APi
         }
 
         // GET /api/customers
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers(string query = null)
         {
-            var customerDtos = _context.Customers
-                .Include(c => c.MembershipType)
+            var customersQuery = _context.Customers
+                .Include(c => c.MembershipType);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+            var customerDtos = customersQuery
                 .ToList()
                 .Select(Mapper.Map<Customer, CustomerDto>);
 
             return Ok(customerDtos);
         }
 
-        // POST /api/customers/1
+        // GET /api/customers/1
         public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
-            {
                 return NotFound();
-            }
 
-            //return Mapper.Map<Customer, CustomerDto> (customer); 
             return Ok(Mapper.Map<Customer, CustomerDto>(customer));
         }
 
